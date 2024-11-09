@@ -34,6 +34,7 @@ public class CapsuleArm : MonoBehaviour
     public float closingTimer;
 
     public CircleCollider2D armCollider;
+    public Transform trashParent;
 
 
     // Start is called before the first frame update
@@ -153,8 +154,16 @@ public class CapsuleArm : MonoBehaviour
 
         foreach (Transform t in caughtObjects)
         {
-            t.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
-            t.parent = null;
+            var trash = t.GetComponent<Trash>();
+
+            var collected = trash.Collect();
+
+            if (!collected)
+            {
+                t.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+            }
+            
+            t.parent = trashParent;
         }
 
         caughtObjects.Clear();
@@ -163,5 +172,10 @@ public class CapsuleArm : MonoBehaviour
     public void HitAWall()
     {
         clawState = ClawState.GoneDown;
+    }
+
+    public void HitBadStuff()
+    {
+        clawState = ClawState.GoingUp;
     }
 }

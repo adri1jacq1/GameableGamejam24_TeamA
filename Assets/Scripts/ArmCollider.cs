@@ -21,10 +21,14 @@ public class ArmCollider : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        Debug.LogError(col.name);
         if (col.tag == "Wall")
         {
             arm.HitAWall();
+        }
+
+        if (col.tag == "BadStuff")
+        {
+            arm.HitBadStuff();
         }
     }    
 }
