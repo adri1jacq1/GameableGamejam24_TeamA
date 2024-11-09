@@ -9,7 +9,7 @@ public class Trash : MonoBehaviour
         Grain,
         Fruit,
         Vegetable,
-        Protein
+        Protein        
     }
 
     public bool collectable;
@@ -30,7 +30,7 @@ public class Trash : MonoBehaviour
         
     }
 
-    public bool Collect()
+    public FoodGroup Collect()
     {
         if (collectable)
         {
@@ -39,6 +39,6 @@ public class Trash : MonoBehaviour
             animator.SetTrigger("Destroy");
         }
 
-        return collectable;
+        return foodGroup;
     }
 }

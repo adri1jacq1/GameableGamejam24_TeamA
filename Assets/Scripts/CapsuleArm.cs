@@ -35,7 +35,7 @@ public class CapsuleArm : MonoBehaviour
 
     public CircleCollider2D armCollider;
     public Transform trashParent;
-
+    public UIFoodGroups uIFoodGroups;
 
     // Start is called before the first frame update
     void Start()
@@ -156,13 +156,16 @@ public class CapsuleArm : MonoBehaviour
         {
             var trash = t.GetComponent<Trash>();
 
-            var collected = trash.Collect();
-
-            if (!collected)
+            if (trash != null && trash.collectable)
+            {
+                var foodGroup = trash.Collect();
+                uIFoodGroups.AddScore(foodGroup);
+            }
+            else 
             {
                 t.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
             }
-            
+
             t.parent = trashParent;
         }
 
