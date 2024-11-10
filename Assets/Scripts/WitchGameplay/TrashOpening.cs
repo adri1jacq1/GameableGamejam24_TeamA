@@ -83,6 +83,8 @@ public class TrashOpening : MonoBehaviour
         }
 
         witch.GetComponent<WitchMovement>().enabled = false;
+
+        opening = false;
     }
 
     public static void OnQuitGame()
