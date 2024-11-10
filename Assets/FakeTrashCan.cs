@@ -47,7 +47,7 @@ public class FakeTrashCan : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && isWitchNear)
+        if (Input.GetKeyDown(KeyCode.E) && isWitchNear && !played)
         {
             StartCoroutine(JumpscareCoroutine());
         }
