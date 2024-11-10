@@ -667,6 +667,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trashMiniGamePrefab: {fileID: 5192123542464783422, guid: f4e07201ef9860647b2d85f540659b57, type: 3}
+  _spawns:
+  - type: {fileID: 11400000, guid: 95bc0d1d279d94614bdea3d6228cccd1, type: 2}
+    min: 2
+    max: 3
+  - type: {fileID: 11400000, guid: 7b8eb0c38977b41ce9d2cd541ebbef37, type: 2}
+    min: 0
+    max: 1
+  - type: {fileID: 11400000, guid: e7ee136bd37194812a7b8a953d1ac84e, type: 2}
+    min: 0
+    max: 1
+  - type: {fileID: 11400000, guid: c7fe2d51e996640849b8bf53fcff0097, type: 2}
+    min: 0
+    max: 1
 --- !u!1001 &4586160995630738734
 PrefabInstance:
   m_ObjectHideFlags: 0

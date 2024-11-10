@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using DefaultNamespace;
 using UnityEngine;
 
 public class Trash : MonoBehaviour
@@ -36,7 +35,9 @@ public class Trash : MonoBehaviour
     public void ApplyDefinition(TrashDefinition definition)
     {
         _renderer.sprite = definition.sprite;
-        _renderer.color = definition.color;
+        _renderer.color = Color.white;
+        _renderer.transform.localScale = Vector3.one;
+        
         foodGroup = definition.group;
         collectable = true;
     }
