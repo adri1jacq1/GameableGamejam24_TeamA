@@ -1039,7 +1039,7 @@ MonoBehaviour:
   animator: {fileID: 3214842488762684330}
   audioSource: {fileID: 8079607975252881997}
   _allowMissingFoodGroups: 0
-  _scoreValue: 350
+  _scoreValue: 1000
 --- !u!95 &3214842488762684330
 Animator:
   serializedVersion: 5
