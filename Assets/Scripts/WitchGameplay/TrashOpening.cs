@@ -59,6 +59,8 @@ public class TrashOpening : MonoBehaviour
 
         animator.SetTrigger("Open");
 
+        yield return new WaitForSeconds(0.5f);
+
         currentMiniGame = Instantiate(trashMiniGamePrefab);
         foreach (SpriteRenderer sr in currentMiniGame.GetComponentsInChildren<SpriteRenderer>())
         {
