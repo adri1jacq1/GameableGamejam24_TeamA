@@ -1,21 +1,31 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditorInternal;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 public class TrashOpening : MonoBehaviour
 {
     public GameObject trashMiniGamePrefab;
+    public AudioClip openingSound, throwingSound;
 
     private static GameObject currentMiniGame = null;
+    private static TrashOpening currentInstance = null;
     private static Transform witch;
 
     private bool isWitchNear = false;
 
     [SerializeField] private FoodGroupSpawn[] _spawns;
+
+    public Animator animator;
+    private bool opening = false;
+    private AudioSource audioSource;
+
+    void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
 
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -38,45 +48,83 @@ public class TrashOpening : MonoBehaviour
 
     void Update()
     {
+        if (opening)
+        {
+            return;
+        }
+
         if (Input.GetKeyDown(KeyCode.E) && isWitchNear && currentMiniGame == null)
         {
-            currentMiniGame = Instantiate(trashMiniGamePrefab);
-            foreach (SpriteRenderer sr in currentMiniGame.GetComponentsInChildren<SpriteRenderer>())
-            {
-                sr.sortingOrder += 20;
-            }
-
-            // Disable with movement
-            witch.GetComponent<Rigidbody2D>().isKinematic = true;
-
-            if (currentMiniGame.TryGetComponent<TrashCanList>(out var trashCanList))
-            {
-                RandomizeFood(trashCanList, _spawns);
-            }
-
-            var arm = currentMiniGame.GetComponentInChildren<CapsuleArm>();
-
-            if (arm && witch.TryGetComponent<Inventory>(out var inventory))
-            {
-                arm.inventory = inventory;
-            }
-
-            witch.GetComponent<WitchMovement>().enabled = false;
+            StartCoroutine(OpenMiniGame());
         }
+    }
+
+    IEnumerator OpenMiniGame()
+    {
+        opening = true;
+
+        currentInstance = this;
+
+        audioSource.clip = openingSound;
+        audioSource.Play();
+
+        animator.SetTrigger("Open");
+
+        yield return new WaitForSeconds(0.5f);
+
+        currentMiniGame = Instantiate(trashMiniGamePrefab);
+        foreach (SpriteRenderer sr in currentMiniGame.GetComponentsInChildren<SpriteRenderer>())
+        {
+            sr.sortingOrder += 20;
+        }
+
+        // Disable witch movement
+        witch.GetComponent<Rigidbody2D>().isKinematic = true;
+
+        if (currentMiniGame.TryGetComponent<TrashCanList>(out var trashCanList))
+        {
+            RandomizeFood(trashCanList, _spawns);
+        }
+
+        var arm = currentMiniGame.GetComponentInChildren<CapsuleArm>();
+
+        if (arm && witch.TryGetComponent<Inventory>(out var inventory))
+        {
+            arm.inventory = inventory;
+        }
+
+        witch.GetComponent<WitchMovement>().enabled = false;
+
+        opening = false;
     }
 
     public static void OnQuitGame()
     {
         Destroy(currentMiniGame);
+        currentMiniGame = null;
 
-        // Disable with movement
+        // Throw trash
+        currentInstance.animator.SetTrigger("Break");
+        currentInstance.audioSource.clip = currentInstance.throwingSound;
+        currentInstance.audioSource.Play();
+        // Disable trash trigger
+        foreach (Collider2D col in currentInstance.animator.GetComponents<Collider2D>())
+        {
+            if (col.isTrigger)
+            {
+                col.enabled = false;
+            }
+        }
+        currentInstance = null;
+
+        // Re-enable witch movement
         witch.GetComponent<Rigidbody2D>().isKinematic = false;
         witch.GetComponent<WitchMovement>().enabled = true;
     }
 
     private void RandomizeFood(TrashCanList trashCanList, FoodGroupSpawn[] spawns)
     {
-        var rolledTrashes = new List<TrashDefinition>();
+        var rolledTrashes = new List<FoodDefinition>();
 
         foreach (var spawn in spawns)
         {
@@ -92,19 +140,14 @@ public class TrashOpening : MonoBehaviour
             rolledTrashes = rolledTrashes.Shuffle().Take(trashCanList.trashes.Count).ToList();
         }
 
-        var randomizedTrash = trashCanList.trashes.Shuffle().ToList();
-
-        for (var index = 0; index < rolledTrashes.Count; index++)
-        {
-            randomizedTrash[index].ApplyDefinition(rolledTrashes[index]);
-        }
+        trashCanList.SpawnTrashes(rolledTrashes);
     }
 
 
     [Serializable]
     private struct FoodGroupSpawn
     {
-        public TrashDefinition type;
+        public FoodDefinition type;
         public int min;
         public int max;
     }
