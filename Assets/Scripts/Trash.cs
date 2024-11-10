@@ -18,17 +18,7 @@ public class Trash : MonoBehaviour
 
     public FoodGroup foodGroup;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    [SerializeField] private SpriteRenderer _renderer;
 
     public FoodGroup Collect()
     {
@@ -40,5 +30,15 @@ public class Trash : MonoBehaviour
         }
 
         return foodGroup;
+    }
+
+    public void ApplyDefinition(TrashDefinition definition)
+    {
+        _renderer.sprite = definition.sprite;
+        _renderer.color = Color.white;
+        _renderer.transform.localScale = Vector3.one;
+        
+        foodGroup = definition.group;
+        collectable = true;
     }
 }
