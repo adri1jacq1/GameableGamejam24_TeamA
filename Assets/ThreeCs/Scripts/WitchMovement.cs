@@ -31,6 +31,7 @@ public class WitchMovement : MonoBehaviour
     void FixedUpdate()
     {
         // Apply movement to the player's rigidbody
+        movement.Normalize();
         rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
     }
 }
