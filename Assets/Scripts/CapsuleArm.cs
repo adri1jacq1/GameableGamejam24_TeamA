@@ -39,6 +39,8 @@ public class CapsuleArm : MonoBehaviour
     public Transform trashParent;
     public UIFoodGroups uIFoodGroups;
 
+    AudioSource audioSource;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -46,6 +48,8 @@ public class CapsuleArm : MonoBehaviour
 
         armOrigin = arm.position.y;
         armTarget = armOrigin - heightLimit;
+
+        audioSource = gameObject.GetComponent<AudioSource>();
     }
 
     void Update()
@@ -68,6 +72,8 @@ public class CapsuleArm : MonoBehaviour
             if (clawState == ClawState.GoingDown || clawState == ClawState.GoneDown)
             {
                 Capture();
+                if (audioSource != null)
+                    audioSource.Play();
             }
         }
     }

@@ -13,13 +13,14 @@ public class UIFoodGroups : MonoBehaviour
     void Start()
     {
         inventory.OnInventoryChanged += Redraw;
+        Redraw();
     }
 
     private void Redraw()
     {
-        foreach (var inventoryItem in inventory.items)
+        foreach (var inventoryItem in inventory.foodCounts)
         {
-            foodGroupLabels[(int)inventoryItem.Key].SetText(inventoryItem.Value.ToString());
+            foodGroupLabels[(int)inventoryItem.Key.group].SetText(inventoryItem.Value.ToString());
         }
     }
 }

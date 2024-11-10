@@ -8,9 +8,10 @@ using Random = UnityEngine.Random;
 public class TrashOpening : MonoBehaviour
 {
     public GameObject trashMiniGamePrefab;
+    public AudioClip openingSound, throwingSound;
 
     private static GameObject currentMiniGame = null;
-    private static Animator currentAnimator = null;
+    private static TrashOpening currentInstance = null;
     private static Transform witch;
 
     private bool isWitchNear = false;
@@ -19,6 +20,12 @@ public class TrashOpening : MonoBehaviour
 
     public Animator animator;
     private bool opening = false;
+    private AudioSource audioSource;
+
+    void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
 
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -56,8 +63,12 @@ public class TrashOpening : MonoBehaviour
     {
         opening = true;
 
+        currentInstance = this;
+
+        audioSource.clip = openingSound;
+        audioSource.Play();
+
         animator.SetTrigger("Open");
-        currentAnimator = animator;
 
         yield return new WaitForSeconds(0.5f);
 
@@ -93,16 +104,18 @@ public class TrashOpening : MonoBehaviour
         currentMiniGame = null;
 
         // Throw trash
-        currentAnimator.SetTrigger("Break");
+        currentInstance.animator.SetTrigger("Break");
+        currentInstance.audioSource.clip = currentInstance.throwingSound;
+        currentInstance.audioSource.Play();
         // Disable trash trigger
-        foreach (Collider2D col in currentAnimator.GetComponents<Collider2D>())
+        foreach (Collider2D col in currentInstance.animator.GetComponents<Collider2D>())
         {
             if (col.isTrigger)
             {
                 col.enabled = false;
             }
         }
-        currentAnimator = null;
+        currentInstance = null;
 
         // Re-enable witch movement
         witch.GetComponent<Rigidbody2D>().isKinematic = false;
@@ -111,7 +124,7 @@ public class TrashOpening : MonoBehaviour
 
     private void RandomizeFood(TrashCanList trashCanList, FoodGroupSpawn[] spawns)
     {
-        var rolledTrashes = new List<TrashDefinition>();
+        var rolledTrashes = new List<FoodDefinition>();
 
         foreach (var spawn in spawns)
         {
@@ -142,7 +155,7 @@ public class TrashOpening : MonoBehaviour
     [Serializable]
     private struct FoodGroupSpawn
     {
-        public TrashDefinition type;
+        public FoodDefinition type;
         public int min;
         public int max;
     }
