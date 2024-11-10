@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace Children
 {
-    public class UIChild : MonoBehaviour
+    public class MissingFoodUI : MonoBehaviour
     {
         [SerializeField] private Image[] _renderers;
 

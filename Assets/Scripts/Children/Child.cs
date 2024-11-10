@@ -1,12 +1,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Children
 {
     public class Child : MonoBehaviour
     {
-        [SerializeField] private UIChild _uiChild;
+        [SerializeField] private MissingFoodUI missingFoodUI;
+        [SerializeField] private GameObject canFeedUI;
+        
         [SerializeField] private Animator animator;
         [SerializeField] private int _allowMissingFoodGroups;
         [SerializeField] private int _scoreValue;
@@ -27,15 +30,17 @@ namespace Children
                     if (CanFeed(inventory, _missingFoodGroups))
                     {
                         other.transform.GetChild(0).gameObject.SetActive(true);
-                        _uiChild.gameObject.SetActive(false);
+                        missingFoodUI.gameObject.SetActive(false);
+                        canFeedUI.SetActive(true);
                         canWitchFeed = true;
                     }
                     else
                     {
                         other.transform.GetChild(0).gameObject.SetActive(false);
                         canWitchFeed = true;
-                        _uiChild.gameObject.SetActive(true);
-                        _uiChild.DisplayMissingFood(_missingFoodGroups);
+                        missingFoodUI.gameObject.SetActive(true);
+                        canFeedUI.SetActive(false);
+                        missingFoodUI.DisplayMissingFood(_missingFoodGroups);
                     }
                 }
             }
@@ -109,7 +114,8 @@ namespace Children
         private void DisableAllUI(Transform witchTransform)
         {
             witchTransform.GetChild(0).gameObject.SetActive(false);
-            _uiChild.gameObject.SetActive(false);
+            missingFoodUI.gameObject.SetActive(false);
+            canFeedUI.SetActive(false);
             canWitchFeed = false;
         }
     }
