@@ -77,6 +77,7 @@ public class CycleManager : MonoBehaviour
             OnGameOver?.Invoke();
         }
         timerUIText.text = minutes + ":" + seconds;
+        timerUIText.color = minutes == "0" ? Color.red : Color.white;
     }
 
     bool IsGameWin()
