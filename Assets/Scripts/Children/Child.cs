@@ -9,8 +9,9 @@ namespace Children
     {
         [SerializeField] private MissingFoodUI missingFoodUI;
         [SerializeField] private GameObject canFeedUI;
-        
         [SerializeField] private Animator animator;
+        [SerializeField] private AudioSource audioSource;
+        
         [SerializeField] private int _allowMissingFoodGroups;
         [SerializeField] private int _scoreValue;
 
@@ -62,7 +63,8 @@ namespace Children
                             score.AddScore(_scoreValue);
                         }
                         
-                        animator.SetTrigger("Eat");
+                        audioSource.Play();
+                        animator.SetTrigger("Destroy");
 
                         Destroy(gameObject, 0.3f);
 
