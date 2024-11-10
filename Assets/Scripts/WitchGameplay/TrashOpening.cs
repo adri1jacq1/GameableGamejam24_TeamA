@@ -104,22 +104,40 @@ public class TrashOpening : MonoBehaviour
         currentMiniGame = null;
 
         // Throw trash
-        currentInstance.animator.SetTrigger("Break");
-        currentInstance.audioSource.clip = currentInstance.throwingSound;
-        currentInstance.audioSource.Play();
+        currentInstance.Disable();
+        currentInstance = null;
+
+        // Re-enable witch movement
+        witch.GetComponent<Rigidbody2D>().isKinematic = false;
+        witch.GetComponent<WitchMovement>().enabled = true;
+    }
+
+    private void Disable()
+    {
+        animator.SetTrigger("Break");
+        audioSource.clip = currentInstance.throwingSound;
+        audioSource.Play();
         // Disable trash trigger
-        foreach (Collider2D col in currentInstance.animator.GetComponents<Collider2D>())
+        foreach (var col in animator.GetComponents<Collider2D>())
         {
             if (col.isTrigger)
             {
                 col.enabled = false;
             }
         }
-        currentInstance = null;
+    }
 
-        // Re-enable witch movement
-        witch.GetComponent<Rigidbody2D>().isKinematic = false;
-        witch.GetComponent<WitchMovement>().enabled = true;
+    [ContextMenu(nameof(Reset))]
+    public void Reset()
+    {
+        animator.SetTrigger("Reset");
+        foreach (var col in animator.GetComponents<Collider2D>())
+        {
+            if (col.isTrigger)
+            {
+                col.enabled = true;
+            }
+        }
     }
 
     private void RandomizeFood(TrashCanList trashCanList, FoodGroupSpawn[] spawns)
