@@ -13,6 +13,8 @@ public class CapsuleArm : MonoBehaviour
     public float goingDownSpeed;
     public float goingUpSpeed;
     public bool goingDownInput;
+
+    public Inventory inventory;
     
     public enum ClawState
     {
@@ -48,6 +50,11 @@ public class CapsuleArm : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            TrashOpening.OnQuitGame();
+        }
+        
         if (Input.GetKeyDown(KeyCode.Space))
         {
             if (clawState == ClawState.Moving)
@@ -159,7 +166,7 @@ public class CapsuleArm : MonoBehaviour
             if (trash != null && trash.collectable)
             {
                 var foodGroup = trash.Collect();
-                uIFoodGroups.AddScore(foodGroup);
+                inventory.AddItem(foodGroup);
             }
             else 
             {
