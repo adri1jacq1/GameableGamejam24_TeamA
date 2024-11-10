@@ -19,7 +19,6 @@ public class CycleManager : MonoBehaviour
     void Start()
     {
         numberOfActiveChildren = numberOfChildrenInCycle1;
-        StartCycle(); // TODO: remove, and start from the tutorial screen
     }
 
     public void StartCycle()
