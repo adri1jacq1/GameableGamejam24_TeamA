@@ -107,6 +107,7 @@ public class TrashOpening : MonoBehaviour
         currentInstance.animator.SetTrigger("Break");
         currentInstance.audioSource.clip = currentInstance.throwingSound;
         currentInstance.audioSource.Play();
+        currentInstance.audioSource.volume = 0.5f;
         // Disable trash trigger
         foreach (Collider2D col in currentInstance.animator.GetComponents<Collider2D>())
         {
