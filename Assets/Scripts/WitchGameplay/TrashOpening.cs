@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditorInternal;
@@ -16,6 +17,9 @@ public class TrashOpening : MonoBehaviour
     private bool isWitchNear = false;
 
     [SerializeField] private FoodGroupSpawn[] _spawns;
+
+    public Animator animator;
+    private bool opening = false;
 
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -38,25 +42,42 @@ public class TrashOpening : MonoBehaviour
 
     void Update()
     {
+        if (opening)
+        {
+            return;
+        }
+
         if (Input.GetKeyDown(KeyCode.E) && isWitchNear && currentMiniGame == null)
         {
-            currentMiniGame = Instantiate(trashMiniGamePrefab);
-            foreach (SpriteRenderer sr in currentMiniGame.GetComponentsInChildren<SpriteRenderer>())
-            {
-                sr.sortingOrder += 20;
-            }
-
-            // Disable with movement
-            witch.GetComponent<Rigidbody2D>().isKinematic = true;
-
-            if (currentMiniGame.TryGetComponent<TrashCanList>(out var trashCanList))
-            {
-                RandomizeFood(trashCanList, _spawns);
-            }
-
-
-            witch.GetComponent<WitchMovement>().enabled = false;
+            StartCoroutine(OpenMiniGame());
         }
+    }
+
+    IEnumerator OpenMiniGame()
+    {
+        opening = true;
+
+        animator.SetTrigger("Open");
+
+        yield return new WaitForSeconds(0.5f);
+
+        currentMiniGame = Instantiate(trashMiniGamePrefab);
+        foreach (SpriteRenderer sr in currentMiniGame.GetComponentsInChildren<SpriteRenderer>())
+        {
+            sr.sortingOrder += 20;
+        }
+
+        // Disable with movement
+        witch.GetComponent<Rigidbody2D>().isKinematic = true;
+
+        if (currentMiniGame.TryGetComponent<TrashCanList>(out var trashCanList))
+        {
+            RandomizeFood(trashCanList, _spawns);
+        }
+
+        witch.GetComponent<WitchMovement>().enabled = false;
+
+        opening = false;
     }
 
     public static void OnQuitGame()
