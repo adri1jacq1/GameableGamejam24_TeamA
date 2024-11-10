@@ -59,8 +59,6 @@ public class TrashOpening : MonoBehaviour
 
         animator.SetTrigger("Open");
 
-        yield return new WaitForSeconds(0.5f);
-
         currentMiniGame = Instantiate(trashMiniGamePrefab);
         foreach (SpriteRenderer sr in currentMiniGame.GetComponentsInChildren<SpriteRenderer>())
         {
@@ -75,9 +73,14 @@ public class TrashOpening : MonoBehaviour
             RandomizeFood(trashCanList, _spawns);
         }
 
-        witch.GetComponent<WitchMovement>().enabled = false;
+        var arm = currentMiniGame.GetComponentInChildren<CapsuleArm>();
 
-        opening = false;
+        if (arm && witch.TryGetComponent<Inventory>(out var inventory))
+        {
+            arm.inventory = inventory;
+        }
+
+        witch.GetComponent<WitchMovement>().enabled = false;
     }
 
     public static void OnQuitGame()
