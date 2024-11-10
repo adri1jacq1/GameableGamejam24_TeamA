@@ -1,5 +1,7 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -11,7 +13,7 @@ namespace Children
         [SerializeField] private GameObject canFeedUI;
         [SerializeField] private Animator animator;
         [SerializeField] private AudioSource audioSource;
-        
+
         [SerializeField] private int _allowMissingFoodGroups;
         [SerializeField] private int _scoreValue;
 
@@ -21,6 +23,7 @@ namespace Children
         public bool isFed = false;
 
         private List<FoodDefinition> _missingFoodGroups = new();
+        private Coroutine _disableCoroutine;
 
         void OnEnable()
         {
@@ -29,6 +32,8 @@ namespace Children
 
         void OnTriggerEnter2D(Collider2D other)
         {
+            if (_disableCoroutine != null) return;
+            
             if (other.tag == "Player")
             {
                 witch = other.transform;
@@ -56,6 +61,8 @@ namespace Children
 
         void Update()
         {
+            if (_disableCoroutine != null) return;
+            
             if (Input.GetKeyDown(KeyCode.E) && canWitchFeed)
             {
                 if (witch.TryGetComponent<Inventory>(out var inventory))
@@ -68,20 +75,24 @@ namespace Children
                         {
                             score.AddScore(_scoreValue);
                         }
-                        
+
                         audioSource.Play();
                         animator.SetTrigger("Eat");
 
                         DisableAllUI(witch);
 
-                        gameObject.SetActive(false);
+                        _disableCoroutine = StartCoroutine(DisableCoroutine());
                     }
-                    else
-                    {
-                        canWitchFeed = false;
-                    }
+
+                    canWitchFeed = false;
                 }
             }
+        }
+
+        private IEnumerator DisableCoroutine()
+        {
+            yield return new WaitForSeconds(1f);
+            gameObject.SetActive(false);
         }
 
         private void TakeFood(Inventory inventory)
@@ -93,6 +104,7 @@ namespace Children
                     inventory.RemoveFood(foodCount.Key);
                 }
             }
+
             isFed = true;
         }
 
@@ -130,6 +142,15 @@ namespace Children
         public bool IsFed()
         {
             return isFed;
+        }
+
+        public void StopDisableCoroutine()
+        {
+            if (_disableCoroutine != null)
+            {
+                StopCoroutine(_disableCoroutine);
+                _disableCoroutine = null;
+            }
         }
     }
 }

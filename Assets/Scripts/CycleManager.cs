@@ -30,7 +30,10 @@ public class CycleManager : MonoBehaviour
         // Enable children for the new cycle
         for (int i = 0; i < childrenParent.childCount; i++)
         {
-            childrenParent.GetChild(i).gameObject.SetActive(i < numberOfActiveChildren);
+            var child = childrenParent.GetChild(i).gameObject;
+
+            child.GetComponent<Child>().StopDisableCoroutine();
+            child.SetActive(i < numberOfActiveChildren);
         }
 
         // Reset trashes for the new cycle
@@ -76,6 +79,7 @@ public class CycleManager : MonoBehaviour
             StopCycle();
             OnGameOver?.Invoke();
         }
+
         timerUIText.text = minutes + ":" + seconds;
         timerUIText.color = minutes == "0" ? Color.red : Color.white;
     }
@@ -87,6 +91,7 @@ public class CycleManager : MonoBehaviour
             if (!child.IsFed())
                 return false;
         }
+
         return true;
     }
 }
