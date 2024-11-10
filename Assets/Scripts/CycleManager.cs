@@ -69,7 +69,7 @@ public class CycleManager : MonoBehaviour
         if (remainingTime > 0)
         {
             minutes = ((int)remainingTime / 60).ToString();
-            seconds = (remainingTime % 60).ToString("f0");
+            seconds = (remainingTime % 60).ToString("00");
         }
         else
         {
