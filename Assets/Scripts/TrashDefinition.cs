@@ -7,4 +7,5 @@ public class TrashDefinition : ScriptableObject
     public Trash.FoodGroup group;
     public Sprite sprite;
     public Color color;
+    public GameObject prefab;
 }

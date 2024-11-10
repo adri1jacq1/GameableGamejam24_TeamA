@@ -15,3 +15,4 @@ MonoBehaviour:
   group: 2
   sprite: {fileID: 21300000, guid: 22811db37753ffe4fbb529401dd388bb, type: 3}
   color: {r: 1, g: 1, b: 1, a: 1}
+  prefab: {fileID: 55958878718850931, guid: b0482a6443829f94299b4eedfa62d635, type: 3}
