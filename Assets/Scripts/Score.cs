@@ -12,4 +12,10 @@ public class Score : MonoBehaviour
         score += scoreToAdd;
         OnScoreChanged?.Invoke();
     }
+
+    public void Reset()
+    {
+        score = 0;
+        OnScoreChanged?.Invoke();
+    }
 }

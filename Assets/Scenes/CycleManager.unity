@@ -617,7 +617,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8806398429662901489, guid: a3d67fd48b4dcb64b843286e1479e567, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1191,6 +1191,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 369923480061188201, guid: f897c619760d88842b9910d29d4463b2, type: 3}
+      propertyPath: m_SortingOrder
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 1463004805059815660, guid: f897c619760d88842b9910d29d4463b2, type: 3}
       propertyPath: m_Name
       value: WitchAndCamera
@@ -1210,6 +1214,14 @@ PrefabInstance:
     - target: {fileID: 2470240503191388224, guid: f897c619760d88842b9910d29d4463b2, type: 3}
       propertyPath: startingValues.Array.data[3].value
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5520133610256112102, guid: f897c619760d88842b9910d29d4463b2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.962504
+      objectReference: {fileID: 0}
+    - target: {fileID: 5520133610256112102, guid: f897c619760d88842b9910d29d4463b2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.75477433
       objectReference: {fileID: 0}
     - target: {fileID: 8934816574290125081, guid: f897c619760d88842b9910d29d4463b2, type: 3}
       propertyPath: m_LocalPosition.x

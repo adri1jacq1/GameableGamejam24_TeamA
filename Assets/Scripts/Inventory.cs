@@ -46,4 +46,9 @@ public class Inventory : MonoBehaviour
         public FoodDefinition food;
         public int value;
     }
+
+    public void Reset()
+    {
+        Start();
+    }
 }

@@ -10,8 +10,14 @@ public class CycleManager : MonoBehaviour
     public Transform childrenParent;
     public int numberOfChildrenInCycle1 = 3;
     public Transform trashesParent;
+    
+    public Score score;
+    public Inventory inventory;
+    
     public UnityEvent OnGameOver, OnGameWin;
 
+    
+    
     private bool isRunning = false;
     private float startTime;
     private int numberOfActiveChildren;
@@ -21,6 +27,16 @@ public class CycleManager : MonoBehaviour
         numberOfActiveChildren = numberOfChildrenInCycle1;
     }
 
+    [ContextMenu(nameof(FullReset))]
+    public void FullReset()
+    {
+        score.Reset();
+        inventory.Reset();
+        numberOfActiveChildren = numberOfChildrenInCycle1;
+        StartCycle();
+    }
+
+    [ContextMenu(nameof(StartCycle))]
     public void StartCycle()
     {
         startTime = Time.time;
