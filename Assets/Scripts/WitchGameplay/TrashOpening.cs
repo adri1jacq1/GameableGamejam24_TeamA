@@ -2,10 +2,12 @@ using UnityEngine;
 
 public class TrashOpening : MonoBehaviour
 {
-    public GameObject trashMiniGame;
+    public GameObject trashMiniGamePrefab;
+
+    private static GameObject currentMiniGame = null;
+    private static Transform witch;
 
     private bool isWitchNear = false;
-    private Transform witch;
 
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -28,10 +30,26 @@ public class TrashOpening : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && isWitchNear)
+        if (Input.GetKeyDown(KeyCode.E) && isWitchNear && currentMiniGame == null)
         {
-            Instantiate(trashMiniGame, Camera.main.transform);
+            currentMiniGame = Instantiate(trashMiniGamePrefab);
+            foreach (SpriteRenderer sr in currentMiniGame.GetComponentsInChildren<SpriteRenderer>())
+            {
+                sr.sortingOrder += 20;
+            }
+
+            // Disable with movement
+            witch.GetComponent<Rigidbody2D>().isKinematic = true;
             witch.GetComponent<WitchMovement>().enabled = false;
         }
+    }
+
+    public static void OnQuitGame()
+    {
+        Destroy(currentMiniGame);
+
+        // Disable with movement
+        witch.GetComponent<Rigidbody2D>().isKinematic = false;
+        witch.GetComponent<WitchMovement>().enabled = true;
     }
 }

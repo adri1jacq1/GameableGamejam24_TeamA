@@ -666,7 +666,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54d39d19f77c9d54f8d324de255b7857, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trashMiniGame: {fileID: 7591680374042236253, guid: 907cf9c47ddbbda4e930288a7c633a6f, type: 3}
+  trashMiniGamePrefab: {fileID: 5192123542464783422, guid: f4e07201ef9860647b2d85f540659b57, type: 3}
 --- !u!1001 &4586160995630738734
 PrefabInstance:
   m_ObjectHideFlags: 0

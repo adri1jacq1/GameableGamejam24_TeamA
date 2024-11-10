@@ -15,11 +15,6 @@ public class WitchMovement : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    void OnDisable()
-    {
-        movement = Vector2.zero;
-    }
-
     void Update()
     {
         // Capture input from the player
