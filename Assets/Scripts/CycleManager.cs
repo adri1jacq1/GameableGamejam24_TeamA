@@ -19,7 +19,6 @@ public class CycleManager : MonoBehaviour
     void Start()
     {
         numberOfActiveChildren = numberOfChildrenInCycle1;
-        StartCycle(); // TODO: remove, and start from the tutorial screen
     }
 
     public void StartCycle()
@@ -70,7 +69,7 @@ public class CycleManager : MonoBehaviour
         if (remainingTime > 0)
         {
             minutes = ((int)remainingTime / 60).ToString();
-            seconds = (remainingTime % 60).ToString("f0");
+            seconds = (remainingTime % 60).ToString("00");
         }
         else
         {
