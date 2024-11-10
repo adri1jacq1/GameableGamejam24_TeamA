@@ -497,6 +497,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4894406794357371828, guid: fc4de988a3aee4c4ba33cac3ac0e72c9, type: 3}
+      propertyPath: trashMiniGamePrefab
+      value: 
+      objectReference: {fileID: 3424334015623437084, guid: 31cc60f2ef24e4140a8c63fd7215034c, type: 3}
     - target: {fileID: 6699714193978405469, guid: fc4de988a3aee4c4ba33cac3ac0e72c9, type: 3}
       propertyPath: m_Name
       value: TrashExample
