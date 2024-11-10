@@ -4,23 +4,16 @@ using UnityEngine;
 
 public class Trash : MonoBehaviour
 {
-    public enum FoodGroup
-    {
-        Grain,
-        Fruit,
-        Vegetable,
-        Protein        
-    }
 
     public bool collectable;
 
     public Animator animator;
 
-    public FoodGroup foodGroup;
+    public FoodDefinition foodGroup;
 
     [SerializeField] private SpriteRenderer _renderer;
 
-    public FoodGroup Collect()
+    public FoodDefinition Collect()
     {
         if (collectable)
         {
@@ -32,13 +25,13 @@ public class Trash : MonoBehaviour
         return foodGroup;
     }
 
-    public void ApplyDefinition(TrashDefinition definition)
+    public void ApplyDefinition(FoodDefinition definition)
     {
         _renderer.sprite = definition.sprite;
         _renderer.color = Color.white;
         _renderer.transform.localScale = Vector3.one;
         
-        foodGroup = definition.group;
+        foodGroup = definition;
         collectable = true;
     }
 }

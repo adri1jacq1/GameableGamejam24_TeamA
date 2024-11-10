@@ -124,7 +124,7 @@ public class TrashOpening : MonoBehaviour
 
     private void RandomizeFood(TrashCanList trashCanList, FoodGroupSpawn[] spawns)
     {
-        var rolledTrashes = new List<TrashDefinition>();
+        var rolledTrashes = new List<FoodDefinition>();
 
         foreach (var spawn in spawns)
         {
@@ -152,7 +152,7 @@ public class TrashOpening : MonoBehaviour
     [Serializable]
     private struct FoodGroupSpawn
     {
-        public TrashDefinition type;
+        public FoodDefinition type;
         public int min;
         public int max;
     }

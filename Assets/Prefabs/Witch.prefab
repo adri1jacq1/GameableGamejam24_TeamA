@@ -98,6 +98,7 @@ GameObject:
   - component: {fileID: 889428993575232115}
   - component: {fileID: 8610386270185271322}
   - component: {fileID: 6212775114232588546}
+  - component: {fileID: 7383436823556160366}
   m_Layer: 0
   m_Name: Witch
   m_TagString: Player
@@ -279,3 +280,24 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.14869994, y: 0.09516147}
   m_EdgeRadius: 0
+--- !u!114 &7383436823556160366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3362563384588306936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcd4fecce05f4eca9359033927496ae5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingValues:
+  - food: {fileID: 11400000, guid: e7ee136bd37194812a7b8a953d1ac84e, type: 2}
+    value: 0
+  - food: {fileID: 11400000, guid: 95bc0d1d279d94614bdea3d6228cccd1, type: 2}
+    value: 0
+  - food: {fileID: 11400000, guid: 7b8eb0c38977b41ce9d2cd541ebbef37, type: 2}
+    value: 0
+  - food: {fileID: 11400000, guid: c7fe2d51e996640849b8bf53fcff0097, type: 2}
+    value: 0
