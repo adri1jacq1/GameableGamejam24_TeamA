@@ -6,5 +6,6 @@ namespace DefaultNamespace
     {
         public Trash.FoodGroup group;
         public Sprite sprite;
+        public Color color;
     }
 }

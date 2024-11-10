@@ -36,6 +36,7 @@ public class Trash : MonoBehaviour
     public void ApplyDefinition(TrashDefinition definition)
     {
         _renderer.sprite = definition.sprite;
+        _renderer.color = definition.color;
         foodGroup = definition.group;
         collectable = true;
     }
