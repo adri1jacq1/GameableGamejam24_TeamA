@@ -6,31 +6,20 @@ using UnityEngine;
 
 public class UIFoodGroups : MonoBehaviour
 {
-    public List<TextMeshProUGUI> foodGroupLabels = new();
+    public Inventory inventory;
 
-    public List<int> foodGroupsCount = new List<int>();
+    public List<TextMeshProUGUI> foodGroupLabels = new();
     
-    // Start is called before the first frame update
     void Start()
     {
-        foreach (var group in Enum.GetNames(typeof(Trash.FoodGroup)))
-        {
-            foodGroupsCount.Add(0);
-        }
+        inventory.OnInventoryChanged += Redraw;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Redraw()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        foreach (var inventoryItem in inventory.items)
         {
-            TrashOpening.OnQuitGame();
+            foodGroupLabels[(int)inventoryItem.Key].SetText(inventoryItem.Value.ToString());
         }
-    }
-
-    public void AddScore(Trash.FoodGroup foodGroupIndex)
-    {
-        foodGroupsCount[(int)foodGroupIndex] ++;
-        foodGroupLabels[(int) foodGroupIndex].SetText(foodGroupsCount[(int)foodGroupIndex].ToString());
     }
 }

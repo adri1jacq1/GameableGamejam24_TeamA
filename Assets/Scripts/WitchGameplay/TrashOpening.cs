@@ -54,6 +54,12 @@ public class TrashOpening : MonoBehaviour
                 RandomizeFood(trashCanList, _spawns);
             }
 
+            var arm = currentMiniGame.GetComponentInChildren<CapsuleArm>();
+
+            if (arm && witch.TryGetComponent<Inventory>(out var inventory))
+            {
+                arm.inventory = inventory;
+            }
 
             witch.GetComponent<WitchMovement>().enabled = false;
         }
