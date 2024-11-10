@@ -62,7 +62,7 @@ namespace Children
                             score.AddScore(_scoreValue);
                         }
                         
-                        animator.SetTrigger("Destroy");
+                        animator.SetTrigger("Eat");
 
                         Destroy(gameObject, 0.3f);
 
