@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using DefaultNamespace;
 using UnityEngine;
 
 public class Trash : MonoBehaviour
@@ -18,17 +19,7 @@ public class Trash : MonoBehaviour
 
     public FoodGroup foodGroup;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    [SerializeField] private SpriteRenderer _renderer;
 
     public FoodGroup Collect()
     {
@@ -40,5 +31,12 @@ public class Trash : MonoBehaviour
         }
 
         return foodGroup;
+    }
+
+    public void ApplyDefinition(TrashDefinition definition)
+    {
+        _renderer.sprite = definition.sprite;
+        foodGroup = definition.group;
+        collectable = true;
     }
 }
