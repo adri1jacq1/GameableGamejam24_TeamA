@@ -781,8 +781,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _uiChild: {fileID: 5095233141201484555}
-  _allowMissingFoodGroups: 0
   animator: {fileID: 3214842488762684330}
+  _allowMissingFoodGroups: 0
+  _scoreValue: 350
 --- !u!95 &3214842488762684330
 Animator:
   serializedVersion: 5

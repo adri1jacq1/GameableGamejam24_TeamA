@@ -99,6 +99,7 @@ GameObject:
   - component: {fileID: 8610386270185271322}
   - component: {fileID: 6212775114232588546}
   - component: {fileID: 7383436823556160366}
+  - component: {fileID: 5418605882271368352}
   m_Layer: 0
   m_Name: Witch
   m_TagString: Player
@@ -301,3 +302,16 @@ MonoBehaviour:
     value: 0
   - food: {fileID: 11400000, guid: c7fe2d51e996640849b8bf53fcff0097, type: 2}
     value: 0
+--- !u!114 &5418605882271368352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3362563384588306936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58b2be6d312841218d1dc97b72b7f10a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  score: 0

@@ -7,8 +7,9 @@ namespace Children
     public class Child : MonoBehaviour
     {
         [SerializeField] private UIChild _uiChild;
-        [SerializeField] private int _allowMissingFoodGroups;
         [SerializeField] private Animator animator;
+        [SerializeField] private int _allowMissingFoodGroups;
+        [SerializeField] private int _scoreValue;
 
         private Transform witch;
 
@@ -50,6 +51,11 @@ namespace Children
                     if (CanFeed(inventory, _missingFoodGroups))
                     {
                         TakeFood(inventory);
+
+                        if (witch.TryGetComponent<Score>(out var score))
+                        {
+                            score.AddScore(_scoreValue);
+                        }
                         
                         animator.SetTrigger("Destroy");
 
