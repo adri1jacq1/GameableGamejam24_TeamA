@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/TrashCan.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
+    path: Assets/Cainos/Pixel Art Top Down - Basic/Scene/TileSetScene.unity
+    guid: 0b53549c30cda8c439ff668cd2c3df71
   m_configObjects: {}
