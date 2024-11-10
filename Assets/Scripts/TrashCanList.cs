@@ -18,7 +18,7 @@ public class TrashCanList : MonoBehaviour
 
             randomizedTrash[index].gameObject.SetActive(false);
 
-            var trash = Instantiate(trashDefinitions[index].prefab, randomizedTrash[index].transform.position, quaternion.identity);
+            var trash = Instantiate(trashDefinitions[index].prefab, randomizedTrash[index].transform.position, quaternion.identity, randomizedTrash[index].transform.parent);
             trash.GetComponent<Trash>().foodGroup = randomizedTrash[index].foodGroup;
         }
        
