@@ -18,8 +18,14 @@ namespace Children
         private Transform witch;
 
         private bool canWitchFeed = false;
+        public bool isFed = false;
 
         private List<FoodDefinition> _missingFoodGroups = new();
+
+        void OnEnable()
+        {
+            isFed = false;
+        }
 
         void OnTriggerEnter2D(Collider2D other)
         {
@@ -66,10 +72,9 @@ namespace Children
                         audioSource.Play();
                         animator.SetTrigger("Eat");
 
-                        Destroy(gameObject, 0.3f);
-
                         DisableAllUI(witch);
-                        enabled = false;
+
+                        gameObject.SetActive(false);
                     }
                     else
                     {
@@ -88,6 +93,7 @@ namespace Children
                     inventory.RemoveFood(foodCount.Key);
                 }
             }
+            isFed = true;
         }
 
         private bool CanFeed(Inventory inventory, List<FoodDefinition> missingFoodGroups)
@@ -119,6 +125,11 @@ namespace Children
             missingFoodUI.gameObject.SetActive(false);
             canFeedUI.SetActive(false);
             canWitchFeed = false;
+        }
+
+        public bool IsFed()
+        {
+            return isFed;
         }
     }
 }
