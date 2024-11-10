@@ -31,8 +31,6 @@ public class Trash : MonoBehaviour
         _renderer.sprite = definition.sprite;
         _renderer.color = Color.white;
         _renderer.transform.parent.localScale = new Vector3(1.5f, 1.5f, 1.5f);
-
-        Debug.LogError( _renderer.transform.localScale);
         
         foodGroup = definition;
         collectable = true;

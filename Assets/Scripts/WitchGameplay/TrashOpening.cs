@@ -141,14 +141,6 @@ public class TrashOpening : MonoBehaviour
         }
 
         trashCanList.SpawnTrashes(rolledTrashes);
-
-        //var randomizedTrash = trashCanList.trashes.Shuffle().ToList();
-
-
-        // for (var index = 0; index < rolledTrashes.Count; index++)
-        // {
-        //     randomizedTrash[index].ApplyDefinition(rolledTrashes[index]);
-        // }
     }
 
 

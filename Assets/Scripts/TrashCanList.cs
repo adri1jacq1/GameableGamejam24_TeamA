@@ -8,7 +8,7 @@ public class TrashCanList : MonoBehaviour
 {
     public List<Trash> trashes;
 
-    public void SpawnTrashes(List<TrashDefinition> trashDefinitions)
+    public void SpawnTrashes(List<FoodDefinition> trashDefinitions)
     {
         var randomizedTrash = trashes.Shuffle().ToList();
 
@@ -19,6 +19,7 @@ public class TrashCanList : MonoBehaviour
             randomizedTrash[index].gameObject.SetActive(false);
 
             var trash = Instantiate(trashDefinitions[index].prefab, randomizedTrash[index].transform.position, quaternion.identity);
+            trash.GetComponent<Trash>().foodGroup = randomizedTrash[index].foodGroup;
         }
        
     }

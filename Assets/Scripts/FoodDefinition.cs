@@ -15,4 +15,6 @@ public class FoodDefinition : ScriptableObject
         Vegetable,
         Protein
     }
+
+    public GameObject prefab;
 }
