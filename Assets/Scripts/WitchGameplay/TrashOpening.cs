@@ -2,9 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditorInternal;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 public class TrashOpening : MonoBehaviour
@@ -12,6 +10,7 @@ public class TrashOpening : MonoBehaviour
     public GameObject trashMiniGamePrefab;
 
     private static GameObject currentMiniGame = null;
+    private static Animator currentAnimator = null;
     private static Transform witch;
 
     private bool isWitchNear = false;
@@ -58,6 +57,7 @@ public class TrashOpening : MonoBehaviour
         opening = true;
 
         animator.SetTrigger("Open");
+        currentAnimator = animator;
 
         yield return new WaitForSeconds(0.5f);
 
@@ -67,7 +67,7 @@ public class TrashOpening : MonoBehaviour
             sr.sortingOrder += 20;
         }
 
-        // Disable with movement
+        // Disable witch movement
         witch.GetComponent<Rigidbody2D>().isKinematic = true;
 
         if (currentMiniGame.TryGetComponent<TrashCanList>(out var trashCanList))
@@ -90,8 +90,21 @@ public class TrashOpening : MonoBehaviour
     public static void OnQuitGame()
     {
         Destroy(currentMiniGame);
+        currentMiniGame = null;
 
-        // Disable with movement
+        // Throw trash
+        currentAnimator.SetTrigger("Break");
+        // Disable trash trigger
+        foreach (Collider2D col in currentAnimator.GetComponents<Collider2D>())
+        {
+            if (col.isTrigger)
+            {
+                col.enabled = false;
+            }
+        }
+        currentAnimator = null;
+
+        // Re-enable witch movement
         witch.GetComponent<Rigidbody2D>().isKinematic = false;
         witch.GetComponent<WitchMovement>().enabled = true;
     }
