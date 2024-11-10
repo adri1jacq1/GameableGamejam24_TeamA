@@ -22,17 +22,15 @@ public class UIFoodGroups : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            TrashOpening.OnQuitGame();
+        }
     }
 
     public void AddScore(Trash.FoodGroup foodGroupIndex)
     {
         foodGroupsCount[(int)foodGroupIndex] ++;
         foodGroupLabels[(int) foodGroupIndex].SetText(foodGroupsCount[(int)foodGroupIndex].ToString());
-    }
-
-    public void GoBack()
-    {
-        Debug.LogError("WE WANT TO LEAVE BUT IT'S NOT IMPLEMENTED YET, WOMP WOMP");
     }
 }
